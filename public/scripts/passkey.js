@@ -42,7 +42,7 @@ async function createPassKey() {
 
         // Encode and send the credential to the server for verification.
       }
-    });
+    }).catch(err => console.log(err));
   } else { // Passkeys not supported
     console.log('not supported')
   }
