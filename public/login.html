@@ -600,6 +600,15 @@
 		</div>
 	</main>
 
+	<script>
+		HankoAuth.register({ shadow: false });
+
+		document.addEventListener("hankoAuthSuccess", (event) => {
+			console.log(event);
+			document.location.href = "/secured"
+		})
+	</script>
+
 	<h2>Login Form</h2>
 	<form action='#' onsubmit="createPassKey(); return false;">
 
