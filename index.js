@@ -10,8 +10,8 @@ const cookieParser = require('cookie-parser')
 const jwksHost = 'https://98b85250-91cc-4aea-a0e4-fd795b608081.hanko.io'
 
 const app = express()
-app.use(cookieParser)
-app.use(jwt({
+app.use(cookieParser())
+app.use(SECURED,jwt({
     secret: jwksRsa.expressJwtSecret({
         cache: true,
         rateLimit: true,
