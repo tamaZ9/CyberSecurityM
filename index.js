@@ -9,6 +9,11 @@ const cookieParser = require('cookie-parser')
 
 const jwksHost = 'https://98b85250-91cc-4aea-a0e4-fd795b608081.hanko.io'
 
+const HOME = '/'
+const LOGIN = HOME + 'login'
+const PUBLIC = HOME + 'public'
+const SECURED = HOME + 'secured'
+
 const app = express()
 app.use(cookieParser())
 app.use(SECURED,jwt({
@@ -34,11 +39,6 @@ app.use(SECURED,jwt({
 
 const port = 443;
 const serverStartedMessage = `Express Server running on port ${port}`
-
-const HOME = '/'
-const LOGIN = HOME + 'login'
-const PUBLIC = HOME + 'public'
-const SECURED = HOME + 'secured'
 
 app.use(express.static(__dirname + PUBLIC))
 
