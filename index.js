@@ -37,6 +37,17 @@ app.use(SECURED,jwt({
     }
 }))
 
+app.use(function(err, req, res, next) {
+    if(err.name === 'UnauthorizedError') {
+      res.status(403).send({
+        success: false,
+        message: 'Devi effettuare il log-in prima di poter visualizzare questa pagina!'
+      });
+      return;
+    }
+ next();
+});
+
 const port = 443;
 const serverStartedMessage = `Express Server running on port ${port}`
 
