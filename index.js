@@ -3,14 +3,42 @@ const path = require('path')
 const https = require('https')
 const http = require('http')
 const fs = require('fs')
+const { expressjwt: jwt } = require('express-jwt')
+const jwksRsa = require('jwks-rsa')
+const cookieParser = require('cookie-parser')
+
+const jwksHost = 'https://98b85250-91cc-4aea-a0e4-fd795b608081.hanko.io'
 
 const app = express()
+app.use(cookieParser)
+app.use(jwt({
+    secret: jwksRsa.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 2,
+        jwksUri: `${jwksHost}/.well-known/jwks.json`
+    }),
+    algorithms: [ 'RS256' ],
+    getToken: function fromCookieOrHeader(req) {
+        if (
+            req.headers.authorization &&
+            req.headers.authorization.split(" ")[0] === "Bearer"
+        ) {
+            return req.headers.authorization.split(" ")[1];
+        } else if (req.cookies && req.cookies.hanko) {
+            return req.cookies.hanko;
+        }
+        return null;
+    }
+}))
+
 const port = 443;
 const serverStartedMessage = `Express Server running on port ${port}`
 
 const HOME = '/'
 const LOGIN = HOME + 'login'
 const PUBLIC = HOME + 'public'
+const SECURED = HOME + 'secured'
 
 app.use(express.static(__dirname + PUBLIC))
 
@@ -22,6 +50,11 @@ app.get(HOME, (req, res) => {
 
 app.post(LOGIN, (req, res) => {
     req.body
+})
+
+app.get(SECURED, (req, res) => {
+    if (!req.auth.sub) return res.sendStatus(401)
+    res.sendStatus(200)
 })
 
 
