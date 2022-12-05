@@ -622,7 +622,7 @@
 				console.log('Error! No token found!')
 				return
 			}
-			document.location.href = "liftstracker://logincallback"
+			document.location.href = `liftstracker://logincallback?token=${token}`
 		})
 	</script>
 </body>
