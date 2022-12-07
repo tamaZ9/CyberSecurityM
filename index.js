@@ -62,7 +62,7 @@ app.get(HOME, (req, res) => {
 
 app.get(ASSETSLINK, (req, res) => {
     res.type('application/json')
-    res.sendFile(path.join(PUBLIC + '/assetlinks.json'))
+    res.sendFile(path.join(__dirname, PUBLIC + '/assetlinks.json'))
 })
 
 app.get(SECURED, (req, res) => {
