@@ -4,6 +4,7 @@
     "namespace": "android_app",
     "package_name": "com.privateapps.liftstracker",
     "sha256_cert_fingerprints":
-    ["FB:2F:1A:D0:40:3C:05:E0:25:9D:D0:AD:B4:79:0F:8E:7D:11:AE:22:C7:C4:E6:F5:10:82:6F:A1:9B:20:BB:06"]
+    ["FB:2F:1A:D0:40:3C:05:E0:25:9D:D0:AD:B4:79:0F:8E:7D:11:AE:22:C7:C4:E6:F5:10:82:6F:A1:9B:20:BB:06",
+     "F7:B8:2E:9B:26:B2:F3:CE:40:E8:E2:7B:3F:3E:5E:B8:0B:90:DB:B2:4F:9C:57:47:5A:F2:AB:B9:8C:85:57:F1"]
   }
 }]
