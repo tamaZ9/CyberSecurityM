@@ -13,6 +13,7 @@ const HOME = '/'
 const LOGIN = HOME + 'login'
 const PUBLIC = HOME + 'public'
 const SECURED = HOME + 'secured'
+const ASSETSLINK = HOME + '.well-known/assetlinks.json'
 
 const app = express()
 app.use(cookieParser())
@@ -59,8 +60,9 @@ app.get(HOME, (req, res) => {
     res.sendFile(path.join(__dirname, PUBLIC + '/login.html'))
 })
 
-app.post(LOGIN, (req, res) => {
-    req.body
+app.get(ASSETSLINK, (req, res) => {
+    res.type('application/json')
+    res.sendFile(path.join(PUBLIC + '/assetlinks.json'))
 })
 
 app.get(SECURED, (req, res) => {
