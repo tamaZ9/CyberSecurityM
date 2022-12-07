@@ -14,10 +14,11 @@ const LOGIN = HOME + 'login'
 const PUBLIC = HOME + 'public'
 const SECURED = HOME + 'secured'
 const ASSETSLINK = HOME + '.well-known/assetlinks.json'
+const LOGINCALLBACK = HOME + 'loginCallback'
 
 const app = express()
 app.use(cookieParser())
-app.use(SECURED,jwt({
+app.use([SECURED, LOGINCALLBACK],jwt({
     secret: jwksRsa.expressJwtSecret({
         cache: true,
         rateLimit: true,
@@ -38,7 +39,7 @@ app.use(SECURED,jwt({
     }
 }))
 
-app.use(function(err, req, res, next) {
+app.use(function(err, _req, res, next) {
     if(err.name === 'UnauthorizedError') {
       res.status(403).send({
         success: false,
@@ -56,13 +57,20 @@ app.use(express.static(__dirname + PUBLIC))
 
 app.all('*', switchToHttps)
 
-app.get(HOME, (req, res) => {
+app.get(HOME, (_req, res) => {
     res.sendFile(path.join(__dirname, PUBLIC + '/login.html'))
 })
 
-app.get(ASSETSLINK, (req, res) => {
+app.get(ASSETSLINK, (_req, res) => {
     res.type('application/json')
     res.sendFile(path.join(__dirname, PUBLIC + '/assetlinks.json'))
+})
+
+app.get(LOGINCALLBACK, (req, res) => {
+    res.status(200).send({
+        success: true,
+        message: "Login effettuato con successo, ma per continuare devi installare l'app LiftTracker"
+    });
 })
 
 app.get(SECURED, (req, res) => {
