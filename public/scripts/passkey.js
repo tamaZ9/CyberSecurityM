@@ -15,7 +15,8 @@ async function createPassKey() {
         const publicKeyCredentialCreationOptions = {
           challenge: new Uint8Array([0]),
           rp: {
-            name: relyingPartyName
+            name: "lifterlogin"
+            id: "lifterlogin.tk"
           },
           user: {
             id: userId,
