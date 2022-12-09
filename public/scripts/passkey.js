@@ -34,13 +34,11 @@ async function createPassKey() {
           },
           timeout: 30000
         };
-
-        let credentialContainer = window.navigator
-        credentialContainer.credentials.create({
+        window.navigator.credentialContainer.credentials.create({
           publicKey: publicKeyCredentialCreationOptions
-        }).then(console.log('evviva'));
+        }).then(console.log('passkey creata'));
 
-        // Encode and send the credential to the server for verification.
+        // Invio le credenziali al server per farle verificare
       }
     }).catch(err => console.log(err));
   } else { // Passkeys not supported
